@@ -1,8 +1,10 @@
-require("dotenv").config(); //.config sets all the env to process.env
+const path = require('path');
+require("dotenv").config({ path: path.join(__dirname, '..', '.env') }); //.config sets all the env to process.env
+process.env.NODE_CONFIG_DIR = path.join(__dirname, 'config');
+
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-const path = require('path');
 const ownersRouter = require('./routes/ownersRouter');
 const userRouter = require('./routes/usersRouter');
 const productRouter = require('./routes/productsRouter');
@@ -37,4 +39,7 @@ app.use('/products', productRouter);
 app.use("/email", emailRouter);
 
 
-app.listen(3000);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

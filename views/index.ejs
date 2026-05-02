@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veloura - Luxury Jewelry Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <style>
+        :root {
+            --brand-bg: #ffffff;
+            --brand-text: #111827;
+            --brand-muted: #4b5563;
+            --brand-line: #d1d5db;
+            --brand-dark: #111111;
+        }
+
         @keyframes scroll {
             0% {
                 transform: translateX(100%);
@@ -37,18 +44,65 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Premium gradient backgrounds */
+        /* Flat professional surfaces */
         .premium-gradient {
-            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 50%, #1a1a1a 100%);
+            background: #111827;
         }
 
         .gold-gradient {
-            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #b8860b 100%);
+            background: #ffffff;
+            border: 1px solid #111827;
+            color: #111827;
         }
 
         /* Custom shadows for premium look */
         .premium-shadow {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 12px 24px rgba(17, 24, 39, 0.08), 0 0 0 1px rgba(17, 24, 39, 0.06);
+        }
+
+        .btn-clean {
+            display: inline-block;
+            padding: 0.8rem 1.75rem;
+            border: 1px solid var(--brand-dark);
+            background: #ffffff;
+            color: var(--brand-dark);
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .btn-clean:hover {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .nav-link-clean {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #ffffff;
+            padding: 0.45rem 0.8rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link-clean:hover {
+            background: #ffffff;
+            color: #111827;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.38);
+        }
+
+        i[class^='fa'],
+        i[class*=' fa'] {
+            display: none !important;
         }
 
         /* Search bar styling */
@@ -60,7 +114,8 @@
 
         .search-input {
             transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border: 1px solid transparent;
+            
         }
 
         .search-input:focus {
@@ -173,14 +228,11 @@
                     <div class="search-container">
                         <div class="relative">
                             <input type="text" id="searchInput" placeholder="Search for Chains..."
-                                class="search-input w-full px-4 py-3 pl-12 pr-12 bg-white rounded-full text-gray-700 placeholder-gray-400 focus:outline-none"
+                                class="search-input w-full px-4 py-3 bg-white rounded-full text-gray-700 placeholder-gray-400 focus:outline-none"
                                 onkeyup="handleSearch(event)" onfocus="showSuggestions()" onblur="hideSuggestions()">
-                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
-                                <i class="fas fa-search text-gray-400"></i>
-                            </div>
                             <button onclick="performSearch()"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 bg-yellow-500 hover:bg-yellow-600 text-black px-3 py-1 rounded-full transition-colors duration-200">
-                                <i class="fas fa-search text-sm"></i>
+                                class="absolute right-2 top-1/2 transform -translate-y-1/2 btn-clean !py-2 !px-4 !text-xs">
+                                Search
                             </button>
                         </div>
 
@@ -192,76 +244,22 @@
                 </div>
 
                 <!-- Right Side Navigation -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 md:space-x-3">
                     <% if (!loggedin) { %>
-                        <!-- Guest User Icons -->
-                        <a href="/users/register"
-                            class="text-white hover:text-yellow-400 transition-all duration-300 group"
-                            title="Login to access shop">
-                            <div
-                                class="bg-gray-700 group-hover:bg-blue-500 p-3 rounded-full transition-all duration-300">
-                                <i class="fas fa-store text-lg"></i>
-                            </div>
-                        </a>
-                        <a href="/users/register"
-                            class="text-white hover:text-yellow-400 transition-all duration-300 group"
-                            title="Login to access wishlist">
-                            <div
-                                class="bg-gray-700 group-hover:bg-red-500 p-3 rounded-full transition-all duration-300 relative">
-                                <i class="fas fa-heart text-lg"></i>
-                            </div>
-                        </a>
-                        <a href="/users/register"
-                            class="text-white hover:text-yellow-400 transition-all duration-300 group"
-                            title="Login to access cart">
-                            <div
-                                class="bg-gray-700 group-hover:bg-yellow-500 p-3 rounded-full transition-all duration-300 relative">
-                                <i class="fas fa-shopping-bag text-lg"></i>
-                            </div>
-                        </a>
-                        <a href="/users/register"
-                            class="text-white hover:text-yellow-400 transition-all duration-300 group">
-                            <div
-                                class="bg-green-600 group-hover:bg-green-500 p-3 rounded-full transition-all duration-300">
-                                <i class="fas fa-user text-lg"></i>
-                            </div>
-                        </a>
+                        <a href="/shop" class="nav-link-clean">Shop</a>
+                        <a href="/users/register" class="nav-link-clean">Wishlist</a>
+                        <a href="/users/register" class="nav-link-clean">Cart</a>
+                        <a href="/users/register" class="nav-link-clean">Account</a>
                         <% } else if (isOwner) { %>
-                            <!-- Owner Icons -->
-                            <a href="/shop" class="text-white hover:text-yellow-400 transition-all duration-300 group"
-                                title="View Shop">
-                                <div
-                                    class="bg-gray-700 group-hover:bg-blue-500 p-3 rounded-full transition-all duration-300">
-                                    <i class="fas fa-store text-lg"></i>
-                                </div>
-                            </a>
-                            <a href="/owners/manage-products"
-                                class="text-white hover:text-yellow-400 transition-all duration-300 group"
-                                title="Manage Products">
-                                <div
-                                    class="bg-blue-600 group-hover:bg-blue-500 p-3 rounded-full transition-all duration-300">
-                                    <i class="fas fa-box text-lg"></i>
-                                </div>
-                            </a>
-                            <a href="/wishlist"
-                                class="text-white hover:text-red-400 transition-all duration-300 group relative"
-                                title="Wishlist">
-                                <div
-                                    class="bg-gray-700 group-hover:bg-red-500 p-3 rounded-full transition-all duration-300">
-                                    <i class="fas fa-heart text-lg"></i>
-                                </div>
+                            <a href="/shop" class="nav-link-clean">Shop</a>
+                            <a href="/owners/manage-products" class="nav-link-clean">Products</a>
+                            <a href="/wishlist" class="nav-link-clean relative">Wishlist
                                 <span id="wishlistBadge"
                                     class="notification-badge <%= (typeof wishlistCount !== 'undefined' && wishlistCount > 0) ? '' : 'hidden' %>">
                                     <%= typeof wishlistCount !=='undefined' ? wishlistCount : 0 %>
                                 </span>
                             </a>
-                            <a href="/cart"
-                                class="text-white hover:text-yellow-400 transition-all duration-300 group relative"
-                                title="Shopping Cart">
-                                <div
-                                    class="bg-gray-700 group-hover:bg-yellow-500 p-3 rounded-full transition-all duration-300">
-                                    <i class="fas fa-shopping-bag text-lg"></i>
-                                </div>
+                            <a href="/cart" class="nav-link-clean relative">Cart
                                 <span id="cartBadge"
                                     class="notification-badge <%= (typeof cartCount !== 'undefined' && cartCount > 0) ? '' : 'hidden' %>">
                                     <%= typeof cartCount !=='undefined' ? cartCount : 0 %>
@@ -271,11 +269,8 @@
                             <!-- Owner Dropdown Menu -->
                             <div class="relative group">
                                 <button
-                                    class="flex items-center text-white hover:text-yellow-400 transition-all duration-300">
-                                    <div
-                                        class="bg-yellow-600 hover:bg-yellow-500 p-3 rounded-full transition-all duration-300">
-                                        <i class="fas fa-user-cog text-lg text-black"></i>
-                                    </div>
+                                    class="nav-link-clean">
+                                    Admin
                                 </button>
 
                                 <!-- Dropdown Menu -->
@@ -284,49 +279,29 @@
                                     <div class="py-2">
                                         <a href="/owners/dashboard"
                                             class="block px-4 py-2 text-gray-800 hover:bg-yellow-50 transition-colors">
-                                            <i class="fas fa-tachometer-alt mr-2 text-yellow-600"></i>Dashboard
+                                            Dashboard
                                         </a>
                                         <a href="/owners/create-product"
                                             class="block px-4 py-2 text-gray-800 hover:bg-yellow-50 transition-colors">
-                                            <i class="fas fa-plus mr-2 text-yellow-600"></i>Create Product
+                                            Create Product
                                         </a>
                                         <div class="border-t border-gray-200 my-1"></div>
                                         <a href="/users/logout"
                                             class="block px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
-                                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                            Logout
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <% } else { %>
-                                <!-- Regular User Icons -->
-                                <a href="/shop"
-                                    class="text-white hover:text-yellow-400 transition-all duration-300 group"
-                                    title="Shop">
-                                    <div
-                                        class="bg-gray-700 group-hover:bg-blue-500 p-3 rounded-full transition-all duration-300">
-                                        <i class="fas fa-store text-lg"></i>
-                                    </div>
-                                </a>
-                                <a href="/wishlist"
-                                    class="text-white hover:text-red-400 transition-all duration-300 group relative"
-                                    title="Wishlist">
-                                    <div
-                                        class="bg-gray-700 group-hover:bg-red-500 p-3 rounded-full transition-all duration-300">
-                                        <i class="fas fa-heart text-lg"></i>
-                                    </div>
+                                <a href="/shop" class="nav-link-clean">Shop</a>
+                                <a href="/wishlist" class="nav-link-clean relative">Wishlist
                                     <span id="wishlistBadge"
                                         class="notification-badge <%= (typeof wishlistCount !== 'undefined' && wishlistCount > 0) ? '' : 'hidden' %>">
                                         <%= typeof wishlistCount !=='undefined' ? wishlistCount : 0 %>
                                     </span>
                                 </a>
-                                <a href="/cart"
-                                    class="text-white hover:text-yellow-400 transition-all duration-300 group relative"
-                                    title="Shopping Cart">
-                                    <div
-                                        class="bg-gray-700 group-hover:bg-yellow-500 p-3 rounded-full transition-all duration-300">
-                                        <i class="fas fa-shopping-bag text-lg"></i>
-                                    </div>
+                                <a href="/cart" class="nav-link-clean relative">Cart
                                     <span id="cartBadge"
                                         class="notification-badge <%= (typeof cartCount !== 'undefined' && cartCount > 0) ? '' : 'hidden' %>">
                                         <%= typeof cartCount !=='undefined' ? cartCount : 0 %>
@@ -336,11 +311,8 @@
                                 <!-- User Dropdown Menu -->
                                 <div class="relative group">
                                     <button
-                                        class="flex items-center text-white hover:text-yellow-400 transition-all duration-300">
-                                        <div
-                                            class="bg-green-600 hover:bg-green-500 p-3 rounded-full transition-all duration-300">
-                                            <i class="fas fa-user text-lg"></i>
-                                        </div>
+                                        class="nav-link-clean">
+                                        Account
                                     </button>
 
                                     <!-- Dropdown Menu -->
@@ -349,20 +321,20 @@
                                         <div class="py-2">
                                             <a href="/user/profile"
                                                 class="block px-4 py-2 text-gray-800 hover:bg-yellow-50 transition-colors">
-                                                <i class="fas fa-user-circle mr-2 text-yellow-600"></i>My Profile
+                                                My Profile
                                             </a>
                                             <a href="/user/orders"
                                                 class="block px-4 py-2 text-gray-800 hover:bg-yellow-50 transition-colors">
-                                                <i class="fas fa-box mr-2 text-yellow-600"></i>My Orders
+                                                My Orders
                                             </a>
                                             <a href="/user/purchases"
                                                 class="block px-4 py-2 text-gray-800 hover:bg-yellow-50 transition-colors">
-                                                <i class="fas fa-receipt mr-2 text-yellow-600"></i>Purchase History
+                                                Purchase History
                                             </a>
                                             <div class="border-t border-gray-200 my-1"></div>
                                             <a href="/users/logout"
                                                 class="block px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
-                                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                                Logout
                                             </a>
                                         </div>
                                     </div>
@@ -375,20 +347,16 @@
 
     <!-- Rest of your existing index.ejs content remains the same -->
     <!-- Hero Carousel Section -->
-    <div class="relative h-96 md:h-[500px] overflow-hidden">
+    <div class="relative h-screen min-h-[100vh] overflow-hidden">
         <div id="carousel" class="flex transition-transform duration-500 h-full">
             <% heroImages.forEach((image, index)=> { %>
                 <div class="w-full h-full flex-shrink-0 relative">
-                    <div
-                        class="w-full h-full premium-gradient flex items-center justify-center relative overflow-hidden">
-                        <!-- Background Pattern -->
-                        <div class="absolute inset-0 opacity-10">
-                            <div class="absolute inset-0"
-                                style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;">
-                            </div>
-                        </div>
+                    <div class="w-full h-full relative overflow-hidden">
+                        <img src="<%= image.src %>" alt="<%= image.alt %>" class="w-full h-full object-cover">
+                        <div class="hero-overlay"></div>
 
-                        <div class="relative z-10 text-center text-white max-w-4xl px-6">
+                        <div class="relative z-10 h-full flex items-center justify-center text-center text-white max-w-4xl mx-auto px-6">
+                            <div>
                             <h1 class="text-5xl md:text-7xl font-bold font-playfair mb-6">
                                 <%= image.title %>
                             </h1>
@@ -396,17 +364,16 @@
                                 Discover our exquisite collection of handcrafted luxury jewelry
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a href="/shop"
-                                    class="gold-gradient text-black px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-xl">
+                                <a href="/shop" class="btn-clean">
                                     Explore Collection
                                 </a>
                                 <% if (!loggedin) { %>
-                                    <a href="/users/register"
-                                        class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-black transition-all duration-300">
+                                    <a href="/users/register" class="btn-clean">
                                         Join Veloura
                                     </a>
                                     <% } %>
                             </div>
+                        </div>
                         </div>
 
 
@@ -416,23 +383,13 @@
         </div>
 
         <!-- Carousel Dots -->
-        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
             <% heroImages.forEach((_, index)=> { %>
                 <button onclick="goToSlide(<%= index %>)"
-                    class="w-4 h-4 rounded-full carousel-dot transition-all duration-300 <%= index === 0 ? 'bg-yellow-400 scale-125' : 'bg-white/50 hover:bg-white/80' %>">
+                    class="w-10 h-[3px] rounded-none carousel-dot transition-all duration-300 <%= index === 0 ? 'bg-white' : 'bg-white/40 hover:bg-white/70' %>">
                 </button>
                 <% }) %>
         </div>
-
-        <!-- Navigation Arrows -->
-        <button onclick="previousSlide()"
-            class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <button onclick="nextSlide()"
-            class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300">
-            <i class="fas fa-chevron-right"></i>
-        </button>
     </div>
 
     <!-- Featured Chains Section -->
@@ -451,9 +408,8 @@
             <div class="mb-20">
                 <div class="flex items-center justify-between mb-12">
                     <h3 class="text-3xl font-semibold font-playfair text-gray-800">Premium Chains</h3>
-                    <a href="/shop?category=chain"
-                        class="text-yellow-600 hover:text-yellow-700 font-medium flex items-center">
-                        View All Chains <i class="fas fa-arrow-right ml-2"></i>
+                    <a href="/shop?category=chain" class="btn-clean !py-2 !px-5 !text-xs">
+                        View All Chains
                     </a>
                 </div>
 
@@ -480,12 +436,12 @@
                                                     <div class="flex space-x-4">
                                                         <% if (loggedin) { %>
                                                             <button onclick="addToWishlist('<%= product._id %>')"
-                                                                class="bg-white text-black p-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
-                                                                <i class="fas fa-heart"></i>
+                                                                class="btn-clean !py-2 !px-4 !text-[11px]">
+                                                                Wishlist
                                                             </button>
                                                             <button onclick="addToCart('<%= product._id %>')"
-                                                                class="bg-yellow-500 text-black p-3 rounded-full hover:bg-yellow-600 transition-all duration-300">
-                                                                <i class="fas fa-shopping-cart"></i>
+                                                                class="btn-clean !py-2 !px-4 !text-[11px]">
+                                                                Add To Cart
                                                             </button>
                                                             <% } %>
                                                     </div>
@@ -589,8 +545,7 @@
                 </div>
 
                 <div class="text-center mt-12">
-                    <a href="/shop"
-                        class="gold-gradient text-black px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-xl inline-block">
+                    <a href="/shop" class="btn-clean">
                         Browse All Chains
                     </a>
                 </div>
@@ -603,8 +558,8 @@
     <div class="premium-gradient py-6 overflow-hidden border-y-4 border-yellow-400">
         <div class="scroll-text whitespace-nowrap">
             <span class="text-yellow-400 text-xl font-semibold px-12">
-                ✨ Discover Timeless Elegance • Premium Quality Guaranteed • Free Shipping on Orders Above ₹5000 •
-                Certified Authentic Jewelry • 30-Day Money Back Guarantee ✨
+                Discover Timeless Elegance • Premium Quality Guaranteed • Free Shipping on Orders Above ₹5000 •
+                Certified Authentic Jewelry • 30-Day Money Back Guarantee
             </span>
         </div>
     </div>
@@ -614,9 +569,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-12">
                 <h3 class="text-3xl font-semibold font-playfair text-gray-800">Exquisite Rings</h3>
-                <a href="/shop?category=ring"
-                    class="text-yellow-600 hover:text-yellow-700 font-medium flex items-center">
-                    View All Rings <i class="fas fa-arrow-right ml-2"></i>
+                <a href="/shop?category=ring" class="btn-clean !py-2 !px-5 !text-xs">
+                    View All Rings
                 </a>
             </div>
 
@@ -642,12 +596,12 @@
                                                 <div class="flex space-x-4">
                                                     <% if (loggedin) { %>
                                                         <button onclick="addToWishlist('<%= product._id %>')"
-                                                            class="bg-white text-black p-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
-                                                            <i class="fas fa-heart"></i>
+                                                            class="btn-clean !py-2 !px-4 !text-[11px]">
+                                                            Wishlist
                                                         </button>
                                                         <button onclick="addToCart('<%= product._id %>')"
-                                                            class="bg-yellow-500 text-black p-3 rounded-full hover:bg-yellow-600 transition-all duration-300">
-                                                            <i class="fas fa-shopping-cart"></i>
+                                                            class="btn-clean !py-2 !px-4 !text-[11px]">
+                                                            Add To Cart
                                                         </button>
                                                         <% } %>
                                                 </div>
@@ -743,8 +697,7 @@
             </div>
 
             <div class="text-center mt-12">
-                <a href="/shop"
-                    class="gold-gradient text-black px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-xl inline-block">
+                <a href="/shop" class="btn-clean">
                     Browse All Rings
                 </a>
             </div>
@@ -757,28 +710,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div class="text-center group">
-                    <div
-                        class="gold-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-shipping-fast text-3xl text-black"></i>
-                    </div>
                     <h4 class="text-2xl font-semibold font-playfair text-gray-900 mb-4">Express Delivery</h4>
                     <p class="text-gray-600 leading-relaxed">Free shipping on orders above ₹5000. Express delivery
                         available nationwide with premium packaging.</p>
                 </div>
                 <div class="text-center group">
-                    <div
-                        class="gold-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-certificate text-3xl text-black"></i>
-                    </div>
                     <h4 class="text-2xl font-semibold font-playfair text-gray-900 mb-4">Certified Quality</h4>
                     <p class="text-gray-600 leading-relaxed">All jewelry comes with authenticity certificates, lifetime
                         warranty, and quality assurance guarantee.</p>
                 </div>
                 <div class="text-center group">
-                    <div
-                        class="gold-gradient w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-undo-alt text-3xl text-black"></i>
-                    </div>
                     <h4 class="text-2xl font-semibold font-playfair text-gray-900 mb-4">Hassle-Free Returns</h4>
                     <p class="text-gray-600 leading-relaxed">30-day money-back guarantee. Easy exchanges and returns
                         with free pickup service.</p>
@@ -792,9 +733,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-12">
                 <h3 class="text-3xl font-semibold font-playfair text-gray-800">Stunning Bracelets</h3>
-                <a href="/shop?category=bracelet"
-                    class="text-yellow-600 hover:text-yellow-700 font-medium flex items-center">
-                    View All Bracelets <i class="fas fa-arrow-right ml-2"></i>
+                <a href="/shop?category=bracelet" class="btn-clean !py-2 !px-5 !text-xs">
+                    View All Bracelets
                 </a>
             </div>
 
@@ -819,12 +759,12 @@
                                                 <div class="flex space-x-4">
                                                     <% if (loggedin) { %>
                                                         <button onclick="addToWishlist('<%= product._id %>')"
-                                                            class="bg-white text-black p-3 rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
-                                                            <i class="fas fa-heart"></i>
+                                                            class="btn-clean !py-2 !px-4 !text-[11px]">
+                                                            Wishlist
                                                         </button>
                                                         <button onclick="addToCart('<%= product._id %>')"
-                                                            class="bg-yellow-500 text-black p-3 rounded-full hover:bg-yellow-600 transition-all duration-300">
-                                                            <i class="fas fa-shopping-cart"></i>
+                                                            class="btn-clean !py-2 !px-4 !text-[11px]">
+                                                            Add To Cart
                                                         </button>
                                                         <% } %>
                                                 </div>
@@ -920,8 +860,7 @@
             </div>
 
             <div class="text-center mt-12">
-                <a href="/shop"
-                    class="gold-gradient text-black px-8 py-4 rounded-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-xl inline-block">
+                <a href="/shop" class="btn-clean">
                     Browse All Bracelets
                 </a>
             </div>
@@ -966,18 +905,16 @@
                             <div class="text-sm text-gray-600 uppercase tracking-wide">Unique Designs</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-4xl font-bold text-yellow-600 mb-2">4.9★</div>
+                            <div class="text-4xl font-bold text-yellow-600 mb-2">4.9/5</div>
                             <div class="text-sm text-gray-600 uppercase tracking-wide">Customer Rating</div>
                         </div>
                     </div>
 
                     <div class="flex space-x-4">
-                        <a href="/shop"
-                            class="gold-gradient text-black px-6 py-3 rounded-lg font-semibold hover:scale-105 transition-transform duration-300">
+                        <a href="/shop" class="btn-clean">
                             Explore Collection
                         </a>
-                        <a href="#"
-                            class="border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-yellow-600 hover:text-yellow-600 transition-colors duration-300">
+                        <a href="#" class="btn-clean">
                             Our Story
                         </a>
                     </div>
@@ -986,13 +923,9 @@
                 <div class="relative">
                     <div class="premium-gradient rounded-3xl h-96 flex items-center justify-center premium-shadow">
                         <div class="text-center">
-                            <i class="fas fa-gem text-yellow-400 text-8xl mb-4"></i>
-                            <p class="text-white text-xl font-playfair">Crafted with Precision</p>
+                            <p class="text-white text-xl font-playfair tracking-wide">Crafted with Precision</p>
                         </div>
                     </div>
-                    <!-- Decorative elements -->
-                    <div class="absolute -top-6 -left-6 w-24 h-24 gold-gradient rounded-full opacity-20"></div>
-                    <div class="absolute -bottom-6 -right-6 w-32 h-32 gold-gradient rounded-full opacity-15"></div>
                 </div>
             </div>
         </div>
@@ -1012,19 +945,10 @@
                         Your trusted partner for luxury jewelry. We craft memories, one exquisite piece at a time,
                         with dedication to quality and timeless elegance.
                     </p>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-2xl">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-2xl">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-2xl">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-400 transition-colors duration-300 text-2xl">
-                            <i class="fab fa-pinterest"></i>
-                        </a>
+                    <div class="flex flex-wrap gap-4 text-sm uppercase tracking-wide">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Facebook</a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Instagram</a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300">Pinterest</a>
                     </div>
                 </div>
 
@@ -1067,7 +991,7 @@
             <div class="border-t border-gray-800 mt-12 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <p class="text-gray-400 mb-4 md:mb-0">
-                        © 2025 Veloura. All rights reserved. | Crafted with ♥ for jewelry enthusiasts worldwide
+                        © 2025 Veloura. All rights reserved. Crafted for jewelry enthusiasts worldwide.
                     </p>
                     <div class="flex space-x-6">
                         <a href="#"
@@ -1304,19 +1228,7 @@
                             // Update wishlist badge with new count
                             updateWishlistBadge(data.wishlistCount);
 
-                            // Update the heart icon appearance if needed
-                            const heartIcon = document.querySelector(`[onclick="addToWishlist('${productId}')"] i`);
-                            if (heartIcon) {
-                                if (data.isInWishlist === false) {
-                                    // Item was removed from wishlist
-                                    heartIcon.classList.remove('text-red-500');
-                                    heartIcon.classList.add('text-gray-400');
-                                } else {
-                                    // Item was added to wishlist
-                                    heartIcon.classList.remove('text-gray-400');
-                                    heartIcon.classList.add('text-red-500');
-                                }
-                            }
+                            // Quick-action buttons are text-based in this theme, so no icon toggling is needed.
                         } else {
                             showNotification(data.message || 'Error updating wishlist', 'error');
                         }
