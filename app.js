@@ -21,11 +21,16 @@ const db = require('./config/mongoose-connection'); // Assuming you have a db.js
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+const sessionSecret = process.env.EXPRESS_SESSION_SECRET;
+if (!sessionSecret) {
+    console.warn("EXPRESS_SESSION_SECRET is not set; using an insecure dev secret.");
+}
 app.use(
     expressSession({
         resave: false,
         saveUninitialized: false,
-        secret: process.env.EXPRESS_SESSION_SECRET,
+        secret: sessionSecret || "dev-session-secret",
     })
 );
 app.use(flash()); //flash messages are the messages to show the error also we can get redirect to some other route and access the flash message there
@@ -40,6 +45,10 @@ app.use("/email", emailRouter);
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
